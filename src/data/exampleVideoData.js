@@ -19,7 +19,7 @@ window.exampleVideoData = [{
         width: 120,
         height: 90
       },
-      medium: {
+      medium: { //props.video.snippet.title
         url: 'https://i.ytimg.com/vi/4ZAEBxGipoA/mqdefault.jpg',
         width: 320,
         height: 180

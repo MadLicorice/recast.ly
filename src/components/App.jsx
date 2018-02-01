@@ -1,6 +1,15 @@
 class App extends React.Component {
   constructor( props ) {
     super( props );
+    
+    this.state = {
+      defaultVid: window.exampleVideoData[0]  
+    };
+  }
+  
+  onListVideoClick(index) {
+    console.log(index);
+    this.setState({ defaultVid: window.exampleVideoData[index] });
   }
   
   render() {
@@ -8,15 +17,15 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em><Search /></h5></div>
+            <div><Search /></div>
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><h5><em>videoPlayer</em><VideoPlayer /></h5></div>
+            <div><VideoPlayer defaultVideo={this.state.defaultVid}/></div>
           </div>
           <div className="col-md-5">
-            <div><h5><em>videoList</em><VideoList videoList={window.exampleVideoData}/></h5></div>
+            <div><VideoList videoList={window.exampleVideoData} onListVideoClick={ this.onListVideoClick.bind(this) }/></div>
           </div>
         </div>
       </div>
