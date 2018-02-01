@@ -1,11 +1,11 @@
-var VideoList = () => (
+var VideoList = (props) => (
+
   <div className="video-list">
-    <div><h5><em>videoListEntry</em> view goes here</h5></div>
-    <div><h5><em>videoListEntry</em> view goes here</h5></div>
-    <div><h5><em>videoListEntry</em> view goes here</h5></div>
-    <div><h5><em>videoListEntry</em> view goes here</h5></div>
-    <div><h5><em>videoListEntry</em> view goes here</h5></div>
+    {props.videoList.map((item, index) =>{
+      return <VideoListEntry video={item} key={index}/>
+    })}
   </div>
+
 );
 
 // PropTypes tell other developers what `props` a component expects
