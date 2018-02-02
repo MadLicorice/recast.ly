@@ -4,14 +4,14 @@ class App extends React.Component {
     
     
     this.state = {
-      video: window.exampleVideoData[0],
-      videos: window.exampleVideoData
+      video: null,
+      videos: null
     };
     
   }
   
-  componentWillMount() {
-    this.videoSearch('react tutorials');
+  componentDidMount() {
+    this.videoSearch('minecraft');
   }
 
   videoSearch(query) {
@@ -34,23 +34,27 @@ class App extends React.Component {
   }
   
   render() {
-    return (
-      <div>
-        <nav className="navbar">
-          <div className="col-md-6 offset-md-3">
-            <div><Search videoSearch={this.videoSearch.bind(this)}/></div>
-          </div>
-        </nav>
-        <div className="row">
-          <div className="col-md-7">
-            <div><VideoPlayer video={this.state.video}/></div>
-          </div>
-          <div className="col-md-5">
-            <div><VideoList videos={this.state.videos} onListVideoClick={ this.onListVideoClick.bind(this) }/></div>
+    if (this.state.video) {
+      return (
+        <div>
+          <nav className="navbar">
+            <div className="col-md-6 offset-md-3">
+              <div><Search videoSearch={this.videoSearch.bind(this)}/></div>
+            </div>
+          </nav>
+          <div className="row">
+            <div className="col-md-7">
+              <div><VideoPlayer video={this.state.video}/></div>
+            </div>
+            <div className="col-md-5">
+              <div><VideoList videos={this.state.videos} onListVideoClick={ this.onListVideoClick.bind(this) }/></div>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (<div>Page loading...</div>);
+    }
   }
 }
 // In the ES6 spec, files are "modules" and do not share a top-level scope
