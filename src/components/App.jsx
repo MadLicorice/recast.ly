@@ -2,14 +2,35 @@ class App extends React.Component {
   constructor( props ) {
     super( props );
     
+    
     this.state = {
-      defaultVid: window.exampleVideoData[0]  
+      video: window.exampleVideoData[0],
+      videos: window.exampleVideoData
     };
+    
   }
   
+  componentWillMount() {
+    this.videoSearch('react tutorials');
+  }
+
+  videoSearch(query) {
+    var options = {
+      key: this.props.API_KEY,
+      query: query 
+    };
+
+    this.props.searchYouTube(options, ( videos ) =>
+      this.setState({
+        videos: videos,
+        video: videos[0]
+      })
+    );
+  }
+
+  
   onListVideoClick(index) {
-    console.log(index);
-    this.setState({ defaultVid: window.exampleVideoData[index] });
+    this.setState({ video: this.state.videos[index] });
   }
   
   render() {
@@ -17,15 +38,15 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><Search /></div>
+            <div><Search videoSearch={this.videoSearch.bind(this)}/></div>
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><VideoPlayer defaultVideo={this.state.defaultVid}/></div>
+            <div><VideoPlayer video={this.state.video}/></div>
           </div>
           <div className="col-md-5">
-            <div><VideoList videoList={window.exampleVideoData} onListVideoClick={ this.onListVideoClick.bind(this) }/></div>
+            <div><VideoList videos={this.state.videos} onListVideoClick={ this.onListVideoClick.bind(this) }/></div>
           </div>
         </div>
       </div>
